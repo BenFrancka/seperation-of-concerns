@@ -40,10 +40,10 @@ describe('03_separation-of-concerns-demo routes', () => {
   // });
 
   it('updates an existing order by id', async () => {
-    await Order.insert({ quantity: 10 });
+    const order = await Order.insert({ quantity: 10 });
 
     return request(app)
-      .put('/api/v1/orders')
+      .put(`/api/v1/orders/${order.id}`)
       .send({ quantity: 5 })
       .then((res) => {
         // expect(createMessage).toHaveBeenCalledTimes(1);
@@ -51,6 +51,18 @@ describe('03_separation-of-concerns-demo routes', () => {
           id: '1',
           quantity: 5,
         });
+      });
+  });
+
+  it('deltes an existing order by id', async () => {
+    const order = await Order.insert({ quantity: 10 });
+
+    return request(app)
+      .delete(`/api/v1/orders/${order.id}`)
+      //.send({ quantity: 5 })
+      .then((res) => {
+        // expect(createMessage).toHaveBeenCalledTimes(1);
+        expect(res.body).not.toContain(order);
       });
   });
 
