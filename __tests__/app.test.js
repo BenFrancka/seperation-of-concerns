@@ -38,4 +38,20 @@ describe('03_separation-of-concerns-demo routes', () => {
   //       expect(res.body).toEqual(order);
   //     });
   // });
+
+  it('updates an existing order by id', async () => {
+    await Order.insert({ quantity: 10 });
+
+    return request(app)
+      .put('/api/v1/orders')
+      .send({ quantity: 5 })
+      .then((res) => {
+        // expect(createMessage).toHaveBeenCalledTimes(1);
+        expect(res.body).toEqual({
+          id: '1',
+          quantity: 5,
+        });
+      });
+  });
+
 });
