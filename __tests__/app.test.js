@@ -34,15 +34,15 @@ describe('03_separation-of-concerns-demo routes', () => {
 
     return request(app)
       .get('/api/v1/orders')
-      //.send({ quantity: 10 })
       .then((res) => {
         // expect(createMessage).toHaveBeenCalledTimes(1);
-        expect(res.body).toEqual(order);
+        
+        expect(res.body).toEqual([order]);
       });
   });
 
   // it('gets an order by id', async () => {
-  //   
+  //   const order = await Order.insert({ quantity: 10 });
 
   //   return request(app)
   //     .get(`/api/v1/orders/${order.id}`)
@@ -66,16 +66,16 @@ describe('03_separation-of-concerns-demo routes', () => {
   //     });
   // });
 
-  // it('deltes an existing order by id', async () => {
-  //   const order = await Order.insert({ quantity: 10 });
+  it('deltes an existing order by id', async () => {
+    const order = await Order.insert({ quantity: 10 });
 
-  //   return request(app)
-  //     .delete(`/api/v1/orders/${order.id}`)
-  //     //.send({ quantity: 5 })
-  //     .then((res) => {
-  //       // expect(createMessage).toHaveBeenCalledTimes(1);
-  //       expect(res.body).not.toContain(order);
-  //     });
-  // });
+    return request(app)
+      .delete(`/api/v1/orders/${order.id}`)
+    //.send({ quantity: 5 })
+      .then((res) => {
+        // expect(createMessage).toHaveBeenCalledTimes(1);
+        expect(res.body).not.toContain(order);
+      });
+  });
 
 });
