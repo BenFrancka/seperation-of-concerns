@@ -50,27 +50,26 @@ describe('03_separation-of-concerns-demo routes', () => {
       });
   });
 
-  // it('updates an existing order by id', async () => {
-  //   const order = await Order.insert({ quantity: 10 });
+  it('updates an existing order by id', async () => {
+    const order = await Order.insert({ quantity: 10 });
 
-  //   return request(app)
-  //     .put(`/api/v1/orders/${order.id}`)
-  //     .send({ quantity: 5 })
-  //     .then((res) => {
-  //       // expect(createMessage).toHaveBeenCalledTimes(1);
-  //       expect(res.body).toEqual({
-  //         id: '1',
-  //         quantity: 5,
-  //       });
-  //     });
-  // });
+    return request(app)
+      .put(`/api/v1/orders/${order.id}`)
+      .send({ quantity: 5 })
+      .then((res) => {
+        // expect(createMessage).toHaveBeenCalledTimes(1);
+        expect(res.body).toEqual({
+          id: '1',
+          quantity: 5,
+        });
+      });
+  });
 
-  it('deltes an existing order by id', async () => {
+  it('deletes an existing order by id', async () => {
     const order = await Order.insert({ quantity: 10 });
 
     return request(app)
       .delete(`/api/v1/orders/${order.id}`)
-    //.send({ quantity: 5 })
       .then((res) => {
         // expect(createMessage).toHaveBeenCalledTimes(1);
         expect(res.body).not.toContain(order);
